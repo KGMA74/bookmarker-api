@@ -50,16 +50,15 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
 
-      - name: Log in to GHCR
+      - name: Log in to dockerhub registry
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image with Gradle plugin and push
         run: |
-          IMAGE_NAME="ghcr.io/kgma74/bookmarker-api"
+          IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/bookmarker-api"
           IMAGE_TAG="${{ github.sha }}"
 
           ./gradlew bootBuildImage \
