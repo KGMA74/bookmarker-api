@@ -59,7 +59,7 @@ jobs:
 
       - name: Build image with Gradle plugin and push
         run: |
-          IMAGE_NAME="ghcr.io/${{ github.repository_owner }}/bookmarker-api"
+          IMAGE_NAME="ghcr.io/kgma74/bookmarker-api"
           IMAGE_TAG="${{ github.sha }}"
 
           ./gradlew bootBuildImage \
