@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: bookmarker-api
+
+  datasource:
+    url: jdbc:postgresql://192.168.11.215:5432/bookmarker_db
+    username: username
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    user: username
+    password: password
+    locations: classpath:/db/migration/{vendor}
