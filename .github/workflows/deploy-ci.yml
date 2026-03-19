@@ -60,7 +60,11 @@ jobs:
           IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/bookmarker-api"
           IMAGE_TAG="${{ github.sha }}"
 
-          ./gradlew bootBuildImage --imageName="${IMAGE_NAME}:${IMAGE_TAG}" --no-daemon
+          ./gradlew bootBuildImage \
+            --imageName="${IMAGE_NAME}:${IMAGE_TAG}" \
+            --no-daemon \
+            --publishImage=false
+          
           docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 
           docker tag "${IMAGE_NAME}:${IMAGE_TAG}" "${IMAGE_NAME}:latest"
