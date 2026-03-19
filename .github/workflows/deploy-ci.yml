@@ -57,13 +57,12 @@ jobs:
 
       - name: Build image with Gradle plugin and push
         run: |
-          IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/bookmarker-api"
+          IMAGE_NAME="ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/bookmarker-api"
           IMAGE_TAG="${{ github.sha }}"
 
           ./gradlew bootBuildImage \
             --imageName="${IMAGE_NAME}:${IMAGE_TAG}" \
             --no-daemon \
-            --publishImage=false
           
           docker push "${IMAGE_NAME}:${IMAGE_TAG}"
 
