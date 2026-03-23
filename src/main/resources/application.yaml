@@ -1,20 +1,22 @@
 spring:
   application:
     name: bookmarker-api
+  profiles:
+    active: dev, test
 
   datasource:
-    url: jdbc:postgresql://192.168.11.215:5432/bookmarker_db
-    username: username
-    password: password
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:bookmarker_db}
+    username: ${DB_USERNAME:username}
+    password: ${DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
-    user: username
-    password: password
-    locations: classpath:/db/migration/{vendor}
+    user: ${FLYWAY_USER:${DB_USERNAME:username}}
+    password: ${FLYWAY_PASSWORD:${DB_PASSWORD:password}}
+    locations: classpath:db/migration/{vendor}

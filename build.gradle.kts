@@ -34,6 +34,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("tools.jackson.module:jackson-module-kotlin")
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	implementation("org.springframework.boot:spring-boot-starter-kafka")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
@@ -44,6 +45,7 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testImplementation("org.testcontainers:testcontainers-junit-jupiter")
+	testImplementation("org.springframework.boot:spring-boot-starter-kafka-test")
 
 	// This provides the version numbers for all Testcontainers modules
 	testImplementation(platform("org.testcontainers:testcontainers-bom:1.20.1"))

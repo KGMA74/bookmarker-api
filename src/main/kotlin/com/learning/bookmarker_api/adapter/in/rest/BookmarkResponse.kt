@@ -1,7 +1,14 @@
-package com.learning.bookmarker_api.utils
+package com.learning.bookmarker_api.adapter.`in`.rest
 
 import org.springframework.data.domain.Page
 
+data class BookmarkResponse(
+    val id: String,
+    val url: String,
+    val title: String,
+    val tags: List<String>,
+    val createdAt: String
+)
 
 data class PaginatedResponse<T : Any> (
     val data: List<T>,
