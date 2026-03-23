@@ -1,7 +1,8 @@
 package com.learning.bookmarker_api.adapter.`in`.rest
 
-import com.learning.bookmarker_api.core.model.Bookmark
-import com.learning.bookmarker_api.core.port.input.BookmarkUseCase
+import com.learning.bookmarker_api.domain.model.Bookmark
+import com.learning.bookmarker_api.domain.model.PageRequest
+import com.learning.bookmarker_api.domain.port.input.BookmarkUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -24,17 +25,35 @@ class BookmarkController(
     @PostMapping
     fun create(@RequestBody req: BookmarkRequest): ResponseEntity<BookmarkResponse> {
         val bookmark = useCase.createBookmark(req.url, req.title, req.tags)
-        return ResponseEntity.created(URI("/api/bookmarks/${bookmark.id}"))
+        return ResponseEntity.created(URI("/api/v1/bookmarks/${bookmark.id}"))
             .body(bookmark.toResponse())
     }
 
     @GetMapping
-    fun list(@RequestParam tag: String? = null) =
-        useCase.listBookmarks(tag).map { it.toResponse() }
+    fun list(
+        @RequestParam tag: String? = null,
+        @RequestParam page: Int = 1,
+        @RequestParam size: Int = 10
+    ): PaginatedResponse<BookmarkResponse> {
+        val request = PageRequest(
+            page = if (page < 1) 1 else page,
+            size = size
+        )
+        val pageResult = useCase.listBookmarks(tag, request)
+        return PaginatedResponse(
+            data = pageResult.data.map { it.toResponse() },
+            totalElements = pageResult.totalElements,
+            totalPages = pageResult.totalPages,
+            currentPage = pageResult.currentPage,
+            isFirst = pageResult.isFirst,
+            isLast = pageResult.isLast,
+            hasNext = pageResult.hasNext,
+            hasPrevious = pageResult.hasPrevious
+        )
+    }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: UUID) =
-        useCase.getBookmark(id).toResponse()
+    fun get(@PathVariable id: UUID) = useCase.getBookmark(id).toResponse()
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

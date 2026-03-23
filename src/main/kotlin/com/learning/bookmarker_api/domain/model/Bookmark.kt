@@ -1,6 +1,5 @@
-package com.learning.bookmarker_api.core.model
+package com.learning.bookmarker_api.domain.model
 
-import java.awt.print.Book
 import java.time.Instant
 import java.util.UUID
 

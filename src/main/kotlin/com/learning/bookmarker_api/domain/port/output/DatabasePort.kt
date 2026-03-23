@@ -1,4 +1,4 @@
-package com.learning.bookmarker_api.core.port.out
+package com.learning.bookmarker_api.domain.port.output
 
 interface DatabasePort {
     fun getAllBookmarks(id: Long)

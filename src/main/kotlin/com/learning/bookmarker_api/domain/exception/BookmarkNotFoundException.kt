@@ -1,4 +1,4 @@
-package com.learning.bookmarker_api.core.exception
+package com.learning.bookmarker_api.domain.exception
 
 import java.util.UUID
 

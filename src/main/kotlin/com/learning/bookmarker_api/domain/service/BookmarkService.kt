@@ -1,12 +1,14 @@
-package com.learning.bookmarker_api.core.service
+package com.learning.bookmarker_api.domain.service
 
-import com.learning.bookmarker_api.core.exception.BookmarkNotFoundException
-import com.learning.bookmarker_api.core.model.Bookmark
-import com.learning.bookmarker_api.core.model.BookmarkCreatedEvent
-import com.learning.bookmarker_api.core.model.Tag
-import com.learning.bookmarker_api.core.port.input.BookmarkUseCase
-import com.learning.bookmarker_api.core.port.out.BookmarkRepository
-import com.learning.bookmarker_api.core.port.out.EventPublisher
+import com.learning.bookmarker_api.domain.exception.BookmarkNotFoundException
+import com.learning.bookmarker_api.domain.model.Bookmark
+import com.learning.bookmarker_api.domain.model.BookmarkCreatedEvent
+import com.learning.bookmarker_api.domain.model.PageRequest
+import com.learning.bookmarker_api.domain.model.PageResult
+import com.learning.bookmarker_api.domain.model.Tag
+import com.learning.bookmarker_api.domain.port.input.BookmarkUseCase
+import com.learning.bookmarker_api.domain.port.output.BookmarkRepository
+import com.learning.bookmarker_api.domain.port.output.EventPublisher
 import java.util.UUID
 
 class BookmarkService (
@@ -28,8 +30,8 @@ class BookmarkService (
     override fun getBookmark(id: UUID): Bookmark =
         repository.findById(id) ?: throw BookmarkNotFoundException(id)
 
-    override fun listBookmarks(tag: String?): List<Bookmark> =
-        if (tag != null) repository.findByTag(tag) else repository.findAll()
+    override fun listBookmarks(tag: String?, pageRequest: PageRequest): PageResult<Bookmark> =
+        if (tag != null) repository.findByTag(tag, pageRequest) else repository.findAll(pageRequest)
 
     override fun tagBookmark(id: UUID, tag: String): Bookmark {
         val bookmark = getBookmark(id).addTag(Tag(tag))

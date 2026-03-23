@@ -1,7 +1,7 @@
 package com.learning.bookmarker_api.adapter.out.messaging
 
-import com.learning.bookmarker_api.core.model.BookmarkCreatedEvent
-import com.learning.bookmarker_api.core.port.out.EventPublisher
+import com.learning.bookmarker_api.domain.model.BookmarkCreatedEvent
+import com.learning.bookmarker_api.domain.port.output.EventPublisher
 import org.springframework.context.annotation.Profile
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component

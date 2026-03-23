@@ -1,10 +1,9 @@
 package com.learning.bookmarker_api
 
 
-import com.learning.bookmarker_api.core.model.Bookmark
-import com.learning.bookmarker_api.core.port.out.BookmarkRepository
+import com.learning.bookmarker_api.domain.model.Bookmark
+import com.learning.bookmarker_api.domain.port.output.BookmarkRepository
 import org.springframework.boot.CommandLineRunner
-import org.springframework.stereotype.Component
 
 //@Component
 class DataInitializer(
